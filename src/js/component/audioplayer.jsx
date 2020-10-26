@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import AudioPlayer from "react-h5-audio-player";
-
-import ReactAudioPlayer from "react-audio-player";
 
 export function AudioComponent() {
 	const AudioURls = [
