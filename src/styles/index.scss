@@ -1,5 +1,37 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
+.myList{ 
+    list-style-type: none;
+    color: white;
+    padding-inline-start: 0;
+}
+.myListItem:hover{ 
+    background-color: rgba(66, 19, 38, 0.562);
+    border-radius: 10px;
+}
+.myMusicBox{
+    margin-top: 3rem;
+    padding: 1rem;
+    border-radius: 15px;
+    width: 20rem;
+    background-color: rgba(102, 17, 51, 0.473) 
+}
+.audioControllers{
+    display:flex;
+    justify-content: center;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+radial-gradient(circle at 0% 50%, rgba(96, 16, 48, 0) 9px, #613 10px, rgba(96, 16, 48, 0) 11px) 0px 10px,
+radial-gradient(at 100% 100%,      rgba(96, 16, 48, 0) 9px, #613 10px, rgba(96, 16, 48, 0) 11px),
+rgb(39, 39, 38);
+background-size: 20px 20px;
+}
+
 /* 
 
     You can write your own styles here...

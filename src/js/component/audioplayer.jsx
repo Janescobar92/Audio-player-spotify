@@ -4,13 +4,15 @@ export function AudioComponent() {
 	const [song, setSong] = useState("files/mario/songs/castle.mp3");
 	const songURL = "https://assets.breatheco.de/apis/sound/";
 	const [audioLibrary, setAudioLibrary] = useState([]);
+	console.log(audioLibrary);
 	let songsNames = [];
-	const [cancion, setcancion] = useState(songURL + song);
+	// const [fullSongSource, setFullSongSource] = useState(songURL + song);
 	console.log(audioLibrary);
 	function myListgnerator() {
 		for (let index = 0; index < audioLibrary.length; index++) {
 			songsNames.push(
 				<li
+					className="myListItem"
 					key={index}
 					onClick={() => {
 						setSong(audioLibrary[index].url);
@@ -23,13 +25,21 @@ export function AudioComponent() {
 		}
 		return songsNames;
 	}
-	// function sourceSeter() {
-	// 	for (let index = 0; index < audioLibrary.length; index++) {
-	// 		setSong(audioLibrary[index].url);
-	// 	}
-	// 	return sourcesong;
-	// }
+	const previousSong = () => {
+		for (let index = 0; index < audioLibrary.length; index++) {
+			if (audioLibrary[index].url == song) {
+				setSong(audioLibrary[index - 1].url);
+			}
+		}
+	};
 
+	const nextSong = () => {
+		for (let index = 0; index < audioLibrary.length; index++) {
+			if (audioLibrary[index].url == song) {
+				setSong(audioLibrary[index + 1].url);
+			}
+		}
+	};
 	useEffect(() => {
 		fetch("https://assets.breatheco.de/apis/sound/all")
 			.then(response => {
@@ -44,49 +54,51 @@ export function AudioComponent() {
 	let myAudio = document.querySelector("#myAudioTag");
 
 	if (audioLibrary.length == 0) {
-		return "Loading...";
+		return "Please wait...";
 	} else {
 		return (
-			<div>
-				<ul>{myListgnerator()}</ul>
+			<div className="myMusicBox">
+				<ul className="myList">{myListgnerator()}</ul>
 				<audio id="myAudioTag">
 					<source src={songURL + song} />
 					{/* "ESTO ES SONGURL + SONG" */}
 				</audio>
-				<button
-					onClick={() => {
-						myAudio.play();
-					}}>
-					Play
-				</button>
-				<button onClick={() => myAudio.pause()}>Pause</button>
-				<button
-					onClick={() => {
-						audioLibrary.map((libraryItem, index) => {
-							// {
-							// 	if (index < audioLibrary.length - 1) {
-							// 		index++;
-							// 		return setSong(libraryItem.url);
-							// 	} else {
-							// 		index = 0;
-							// 		return setSong(libraryItem.url);
-							// 	}
-							// }
-						});
-					}}>
-					Previous
-				</button>
-				<button
-					onClick={() => {
-						audioLibrary.map((libraryItem, index) => {
-							setSong(libraryItem.url);
-						});
-						// "ESTO ES NEXT SONG"
-						myAudio.load();
-						myAudio.play();
-					}}>
-					Next
-				</button>
+				<div className="audioControllers">
+					<button
+						type="button"
+						className="btn btn-outline-light"
+						onClick={() => {
+							myAudio.play();
+						}}>
+						<i className="fas fa-play" />
+					</button>
+					<button
+						type="button"
+						className="btn btn-outline-light"
+						onClick={() => myAudio.pause()}>
+						<i className="fas fa-pause" />
+					</button>
+					<button
+						type="button"
+						className="btn btn-outline-light"
+						onClick={() => {
+							previousSong();
+							myAudio.load();
+							myAudio.play();
+						}}>
+						<i className="fas fa-backward" />
+					</button>
+					<button
+						type="button"
+						className="btn btn-outline-light"
+						onClick={() => {
+							nextSong();
+							myAudio.load();
+							myAudio.play();
+						}}>
+						<i className="fas fa-forward" />
+					</button>
+				</div>
 			</div>
 		);
 	}
